@@ -211,4 +211,24 @@ class Rectangle:
         else:
             return f"Both are equal."
 
-    
+# my_rect = Rectangle(5, 3)
+# not_my_rect = Rectangle(8, 2)
+# my_square = Rectangle.create_square(4)
+# print(Rectangle.compare_areas(my_square, not_my_rect))
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+class Product:
+    TAX_RATES = {
+        "food" : 0.0,
+        "books" : 0.0,
+        "electronics" : 0.17,
+        "clothing" : 0.17,
+        "other" : 0.17
+    }
+
+    def __init__(self, name, category="other", base_price, discount_percent):
+        self.__name = name
+        self.__category = category
+        self.__base_price = base_price
+        self.__discount_percent = discount_percent

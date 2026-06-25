@@ -50,10 +50,10 @@ class Vehicle:
         self.__speed -= speed_decrease
 
     def get_speed(self):
-        print(self.__speed)
+        return self.__speed
 
     def get_color(self):
-        print(self._color)
+        return self._color
 
 
 class Car(Vehicle):
@@ -62,23 +62,34 @@ class Car(Vehicle):
         self.max_speed = max_speed
 
     def accelerate(self, speed_increase):
-        if self.__speed < self.max_speed:
-            self.__speed += speed_increase
-            if self.__speed > self.max_speed:
-                self.__speed = self.max_speed
+        if self.get_speed() < self.max_speed:
+            super().accelerate(speed_increase)
+            if self.get_speed() > self.max_speed:
+                super().__speed = self.max_speed
+
+    def brake(self, speed_decrease):
+        if self.get_speed() > 0:
+            super().brake(speed_decrease)
+            if self.get_speed() < 0:
+                super().__speed = 0
+
+    def speed(self):
+        return self.get_speed()
 
     def get_max_speed(self):
-        print(self.max_speed)
+        return self.max_speed
 
-# ford = Car("mustang", "Red", 220)
-# ford.speed = 50
-# print(ford.speed)
+ford = Car("mustang", "Red", 220)
+ford.accelerate(50)
+ford.accelerate(20)
+ford.brake(15)
+print(ford.speed())
 
 # # # # # # # # # # # # # # # # # # # # # #
 
 class DigitalSafe:
-    def __init__(self, safe_id, code, is_locked, attempt_count):
-        self._sefe_id = safe_id
+    def __init__(self, safe_id, code):
+        self._safe_id = safe_id
         self.__code = code
         self.__is_locked = True
         self.__attempt_count = 3
