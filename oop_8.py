@@ -191,7 +191,7 @@ class Rectangle:
         return self.__height * self.__width
 
     @property
-    def parimeter(self):
+    def parameter(self):
         return (self.__width + self.__height) * 2
 
     @property
@@ -227,8 +227,63 @@ class Product:
         "other" : 0.17
     }
 
-    def __init__(self, name, category="other", base_price, discount_percent):
+    def __init__(self, name, base_price, category="other", discount_percent=0.0):
         self.__name = name
         self.__category = category
         self.__base_price = base_price
         self.__discount_percent = discount_percent
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def base_price(self):
+        return self.__base_price
+
+    @base_price.setter
+    def base_price(self, new_price):
+        if new_price < 0:
+            print("Error: Price can't be negative!")
+        else:
+            self.__base_price = new_price
+
+    @property
+    def category(self):
+        return self.__category
+
+    @category.setter
+    def category(self, new_category):
+        if new_category in Product.TAX_RATES:
+            self.__category = new_category
+        else:
+            print("Error: Category isn't available.")
+
+    @property
+    def discount_percent(self):
+        return self.__discount_percent
+
+    @discount_percent.setter
+    def discount_percent(self, new_value):
+        if 1 > new_value > 0:
+            self.__discount_percent = new_value
+        else:
+            print("Error: Discount percent must be between 0 - 1")
+
+    @property
+    def price_after_discount(self):
+        return self.__base_price * self.__discount_percent
+
+    @property
+    def tax_amount(self):
+        return self.price_after_discount * Product.TAX_RATES[self.__category]
+
+    @property
+    def final_price(self):
+        return self.price_after_discount + self.tax_amount
+
+    @staticmethod
+    def get_tax_rate(category):
+        if category in Product.TAX_RATES:
+            return Product.TAX_RATES[category]
+        return Product.TAX_RATES["other"]
