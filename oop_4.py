@@ -25,15 +25,15 @@ class BankAccount:
             self.withdraw(amount)
 
 
-Tzvi = BankAccount("515555", "Tzvi Fisher", 55555)
-
-Tzvi.account_number = "312"
-Tzvi.account_holder = "Chaim schneider"
-Tzvi.balance = 10000000000
-
-print(Tzvi.account_number)
-print(Tzvi._account_holder)
-print(Tzvi.balance)
+# Tzvi = BankAccount("515555", "Tzvi Fisher", 55555)
+#
+# Tzvi.account_number = "312"
+# Tzvi.account_holder = "Chaim schneider"
+# Tzvi.balance = 10000000000
+#
+# print(Tzvi.account_number)
+# print(Tzvi._account_holder)
+# print(Tzvi.balance)
 
 # # # # # # # # # # # # # # # #
 
@@ -69,4 +69,60 @@ class Car(Vehicle):
 
     def get_max_speed(self):
         print(self.max_speed)
-    
+
+# ford = Car("mustang", "Red", 220)
+# ford.speed = 50
+# print(ford.speed)
+
+# # # # # # # # # # # # # # # # # # # # # #
+
+class DigitalSafe:
+    def __init__(self, safe_id, code, is_locked, attempt_count):
+        self._sefe_id = safe_id
+        self.__code = code
+        self.__is_locked = True
+        self.__attempt_count = 3
+
+    def try_unlock(self, code):
+        if self.__attempt_count > 0:
+            if code == self.__code:
+                self.__is_locked = False
+                self.reset_counts()
+            else:
+                self.__attempt_count -= 1
+
+    def is_locked(self):
+        print(f"Is safe locked: {self.__is_locked}")
+
+    def get_attempts_left(self):
+        return f"attempts left: {self.__attempt_count}"
+
+    def reset_counts(self):
+        if not self.__is_locked:
+            self.__attempt_count = 3
+
+# # # # # # # # # # # # # # # # # #
+
+class GameScore:
+    def __init__(self, player_name):
+        self.player_name = player_name
+        self._level = 1
+        self.__score = 0
+        self._high_score = 0
+
+    def add_points(self, points):
+        self.__score += points
+        if self._high_score < self.__score:
+            self._high_score = self.__score
+
+    def level_up(self):
+        self._level += 1
+
+    def get_score(self):
+        return f"score is {self.__score}"
+
+    def get_high_score(self):
+        return f"High score is {self._high_score}"
+
+    def reset_score(self):
+        self.__score = 0
