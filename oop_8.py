@@ -59,12 +59,11 @@ class Person:
         return self.__age
 
     @age.setter
-    def age(self, age):
-        if not isinstance(age, int):
+    def age(self, new_age):
+        if not isinstance(new_age, int):
             print("Error: Age has to be an integer!")
-
-        if 0 < age < 150:
-            self.__name = age
+        if 0 < new_age < 150:
+            self.__age = new_age
         else:
             print("Error: Age is not in legal range!")
 
@@ -79,7 +78,7 @@ class Person:
         return "Senior"
 
 
-haim = Person("haim", 8)
-haim.age(18)
-print(haim.age)
-print(haim.category)
+# haim = Person("haim", 8)
+# haim.age += 12
+# print(haim.age)
+# print(haim.category)

@@ -85,7 +85,7 @@ class DigitalSafe:
 
     def try_unlock(self, code):
         if not self.__is_locked:
-            print("Alredy open")
+            print("Already open")
             return
         if self.__attempt_count > 0:
             if code == self.__code:
