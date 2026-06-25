@@ -1,6 +1,3 @@
-from curses.ascii import isdigit
-
-
 class BankAccount:
     def __init__(self, account_number, initial_balance = 0):
         self.__account_number = account_number
@@ -95,9 +92,12 @@ class User:
     def __init__(self, username, e_mail, password):
         self.username = username
         self.email = e_mail
-        self.__password_hash = password.__hash_password()
+        self.__password_hash = User.__hash_password(password)
         User.__user_count += 1
         User.__users_list.append(self)
+
+    # @property
+
 
     @staticmethod
     def __hash_password(former_password):
@@ -114,13 +114,13 @@ class User:
     def is_strong_password(my_pass):
         if len(my_pass) < 8:
             return False
-        has_upper, has_lower, has_digits = False
+        has_upper, has_lower, has_digits = False, False, False
         for char in my_pass: # הקוד לא לוקח בחשבון תווים מיוחדים?
-            if isdigit(char):
+            if char.isdigit():
                 has_digits = True
-            elif char == char.upper:
+            elif char.isupper():
                 has_upper = True
-            elif char == char.lower:
+            elif char.islower():
                 has_lower = True
         return has_lower and has_upper and has_digits
 
@@ -140,3 +140,75 @@ class User:
                   "Please try again.")
             return None
         return User(username, email, password)
+
+    @classmethod
+    def get_user_count(cls):
+        return cls.__user_count
+
+    @classmethod
+    def find_user_by_username(cls, my_username):
+        for user in cls.__users_list:
+            if user.username == my_username:
+                return user
+        return None
+
+# User.creat_user_safely("tzvi", "zviyf132@gmail.com", "aa123456A")
+# my_user = User.find_user_by_username("tzvi")
+# print(my_user.email)
+# print(User.get_user_count())
+
+# # # # # # # # # # # # # # # # # # # # # # #
+
+class Rectangle:
+    def __init__(self, height, width):
+        self.__height = height
+        self.__width = width
+
+    @property
+    def height(self):
+        return self.__height
+
+    @height.setter
+    def height(self, new_height):
+        if not new_height >= 0:
+            print("Error: Value for height must be positive.")
+            return
+        self.__height = new_height
+
+    @property
+    def width(self):
+        return self.__width
+
+    @width.setter
+    def width(self, new_width):
+        if not new_width >= 0:
+            print("Error: Value for width must be positive.")
+            return
+        self.__width = new_width
+
+    @property
+    def area(self):
+        return self.__height * self.__width
+
+    @property
+    def parimeter(self):
+        return (self.__width + self.__height) * 2
+
+    @property
+    def is_square(self):
+        return self.__height == self.__width
+
+    @staticmethod
+    def create_square(side):
+        return Rectangle(side, side)
+
+    @staticmethod
+    def compare_areas(rect1, rect2):
+        if rect1.area > rect2.area:
+            return f"Rectangle 1 is bigger."
+        elif rect1.area < rect2.area:
+            return f"Rectangle 2 is bigger."
+        else:
+            return f"Both are equal."
+
+    
