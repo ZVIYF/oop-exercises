@@ -1,7 +1,7 @@
 import random
 
-
 class MatrixUtils:
+
     @staticmethod
     def zeros(rows:int, cols:int):
         m = []
@@ -72,4 +72,36 @@ class MatrixUtils:
                     elif c > max:
                         max = c
         return (min, max)
-    
+
+    @staticmethod
+    def is_square(matrix):
+        return len(matrix) == len(matrix[0])
+
+    @staticmethod
+    def sums_info(matrix):
+        results = {
+            "row_sum": [],
+            "col_sum": []
+        }
+        for i in range(len(matrix)):
+            results["row_sum"].append(0)
+        for j in range(len(matrix[0])):
+            results["col_sum"].append(0)
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                results["row_sum"][i] += matrix[i][j]
+                results["col_sum"][j] += matrix[i][j]
+        return results
+
+    @staticmethod
+    def print_matrix(matrix, title="Matrix"):
+        side_space = (len(matrix[0] // 2) - (len(title) // 2)
+
+        for i in range(side_space):
+            print("= ", end=)
+        print(f" {title} ", end="")
+        for i in range(side_space):
+            print(" =", end=)
+        print("")
+        for r in matrix:
+            print(matrix[i])
