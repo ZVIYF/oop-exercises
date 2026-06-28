@@ -96,9 +96,6 @@ class User:
         User.__user_count += 1
         User.__users_list.append(self)
 
-    # @property
-
-
     @staticmethod
     def __hash_password(former_password):
         return str(hash(former_password))
@@ -287,3 +284,14 @@ class Product:
         if category in Product.TAX_RATES:
             return Product.TAX_RATES[category]
         return Product.TAX_RATES["other"]
+
+    @staticmethod
+    def calculate_bulk_discount(quantity, unit_price):
+        if quantity >= 100:
+            return 0.15 * (quantity * unit_price)
+        if quantity >= 50:
+            return 0.1 * (quantity * unit_price)
+        if quantity >= 10:
+            return 0.05 * (quantity * unit_price)
+        return 0
+
