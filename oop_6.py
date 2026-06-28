@@ -40,4 +40,36 @@ class MatrixUtils:
 
     @staticmethod
     def pattern_matrix(rows, cols, pattern_func):
-        
+        m = []
+        for i in range(rows):
+            row = []
+            for j in range(cols):
+                row.append(pattern_func(i, j))
+            m.append(row)
+        return m
+
+    @staticmethod
+    def dimensions(matrix):
+        return (len(matrix), len(matrix[0]))
+
+    @staticmethod
+    def total_sum(matrix):
+        sum = 0
+        for r in matrix:
+            for c in r:
+                if isinstance(c, int|float):
+                    sum += c
+        return sum
+
+    @staticmethod
+    def min_max(matrix):
+        min = matrix[0][0]
+        max = matrix[0][0]
+        for r in matrix:
+            for c in r:
+                    if c < min:
+                        min = c
+                    elif c > max:
+                        max = c
+        return (min, max)
+    
