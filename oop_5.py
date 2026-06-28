@@ -131,3 +131,40 @@ class DictUtils:
                 results[key] = dict2[key]
         return results
 
+    @staticmethod
+    def filter_dict(dictionary, filter_func):
+        new_dict = {}
+        for key, value in dictionary.items():
+            if filter_func(key, value):
+                new_dict[key] = value
+        return new_dict
+
+    @staticmethod
+    def invert_dict(dictionary):
+        new_dict = {}
+        for key, value in dictionary.items():
+            if value not in new_dict:
+                new_dict[value] = key
+                continue
+            elif not isinstance(new_dict[value], list):
+                new_dict[value] = [new_dict[value]]
+            new_dict[value].append(key)
+        return new_dict
+
+
+dict1 = DictUtils.from_lists(["a", "b", "c"], [1, 2, 3])
+dict2 = DictUtils.count_dict(["x", "y", "x", "z", "x"])
+
+print(DictUtils.count_info(dict1))
+print(DictUtils.find_key_by_value(dict1, 2))
+print(DictUtils.dict_status(dict2))
+
+DictUtils.print_dict(dict1, "My Dictionary")
+merged = DictUtils.merge_dicts(dict1, dict2, "keep first")
+DictUtils.print_dict(merged, "Merged Dictionary")
+
+def is_big_value(key, value):
+    return value > 1
+
+filtered = DictUtils.filter_dict(dict2, is_big_value)
+DictUtils.print_dict(filtered, "Filtered Dictionary")
