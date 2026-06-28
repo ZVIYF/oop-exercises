@@ -103,7 +103,7 @@ class User:
     @staticmethod
     def is_valid_email(email):
         if isinstance(email, str):
-            if "@" in email:
+            if "@" in email and "." in email:
                 return True
         return False
 
